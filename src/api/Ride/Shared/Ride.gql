@@ -7,6 +7,9 @@ type Ride{
     dropOffAddress:String!
     dropOffLat:Float!
     dropOffLng:Float!
+    price:Float!
+    distance:String!
+    duration:String!
     createAt:String!
     updateAt:String
 }

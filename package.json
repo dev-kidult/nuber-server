@@ -11,6 +11,7 @@
     "@types/node": "^10.9.4"
   },
   "scripts": {
+    "predev":"yarn run types",
     "dev": "cd src && nodemon --exec ts-node index.ts -e ts,gql",
     "pretypes": "gql-merge --out-file ./src/schema.gql ./src/api/**/*.gql",
     "types": "graphql-to-typescript ./src/schema.gql ./src/types/graph.d.ts"

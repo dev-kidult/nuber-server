@@ -1,0 +1,12 @@
+type Ride{
+    id:Int!
+    status:String!
+    pickUpAddress:String!
+    pickUpLat:Float!
+    pickUpLng:Float!
+    dropOffAddress:String!
+    dropOffLat:Float!
+    dropOffLng:Float!
+    createAt:String!
+    updateAt:String
+}

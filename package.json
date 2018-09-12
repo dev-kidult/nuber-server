@@ -7,6 +7,7 @@
   "author": "dev-kidult <doole3488@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/bcrypt": "^2.0.0",
     "@types/node": "^10.9.4"
   },
   "scripts": {
@@ -16,6 +17,8 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "bcrypt": "^3.0.0",
+    "class-validator": "^0.9.1",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "gql-merge": "^0.0.6",

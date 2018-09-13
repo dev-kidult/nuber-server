@@ -1,3 +1,26 @@
+type Chat {
+  id: Int!
+  messages: [Message]
+  passengerId: Int!
+  passenger: User!
+  driverId: Int
+  driver: User!
+  rideId: Int
+  ride: Ride!
+  createdAt: String!
+  updatedAt: String
+}
+
+type Message {
+  id: Int!
+  text: String!
+  chatId: Int
+  chat: Chat!
+  user: User!
+  createdAt: String!
+  updatedAt: String
+}
+
 type Place {
   id: Int!
   name: String!
@@ -5,8 +28,10 @@ type Place {
   lng: Float!
   address: String!
   isFav: Boolean!
-  createAt: String!
-  updateAt: String
+  userId: Int!
+  user: User!
+  createdAt: String!
+  updatedAt: String
 }
 
 type Ride {
@@ -18,18 +43,37 @@ type Ride {
   dropOffAddress: String!
   dropOffLat: Float!
   dropOffLng: Float!
-  createAt: String!
-  updateAt: String
+  price: Float!
+  distance: String!
+  duration: String!
+  driverId: Int
+  driver: User!
+  passengerId: Int!
+  passenger: User!
+  chat: Chat
+  chatId: Int
+  createdAt: String!
+  updatedAt: String
+}
+
+type FacebookConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse!
 }
 
 type User {
   id: Int!
   email: String
-  fisrtName: String!
+  verifiedEmail: Boolean!
+  firstName: String!
   lastName: String!
   age: Int
   password: String
-  verifiedEmail: Boolean!
   phoneNumber: String
   verifiedPhoneNumber: Boolean!
   profilePhoto: String
@@ -40,8 +84,15 @@ type User {
   lastLng: Float
   lastLat: Float
   lastOrientation: Float
-  createAt: String!
-  updateAt: String
+  fbId: String
+  messages: [Message]
+  ridesAsPassenger: [Ride]
+  ridesAsDriver: [Ride]
+  chatsAsDriver: [Chat]
+  chatsAsPassenger: [Chat]
+  places: [Place]
+  createdAt: String!
+  updatedAt: String
 }
 
 type Query {
@@ -53,7 +104,7 @@ type Verification {
   target: String!
   payload: String!
   key: String!
-  isUsed: Boolean!
-  createAt: String!
-  updateAt: String
+  verified: Boolean!
+  createdAt: String!
+  updatedAt: String
 }

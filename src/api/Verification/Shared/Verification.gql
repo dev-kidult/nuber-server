@@ -1,9 +1,9 @@
 type Verification {
-    id:Int!
-    target:String!
-    payload:String!
-    key:String!
-    isUsed:Boolean!
-    createAt:String!
-    updateAt:String
+  id: Int!
+  target: String!
+  payload: String!
+  key: String!
+  verified: Boolean!
+  createdAt: String!
+  updatedAt: String
 }

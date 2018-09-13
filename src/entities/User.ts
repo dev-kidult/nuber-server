@@ -1,47 +1,51 @@
 import bcrypt from "bcrypt";
 import { IsEmail } from "class-validator";
 import {
-  Entity,
   BaseEntity,
-  PrimaryGeneratedColumn,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
-  BeforeInsert,
-  BeforeUpdate
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from "typeorm";
+import Chat from "./Chat";
+import Message from "./Message";
+import Place from "./Place";
+import Ride from "./Ride";
 
 const BCRYPT_ROUNDS = 10;
 
 @Entity()
 class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn() id: number;
 
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text", nullable: true })
   @IsEmail()
-  email: string;
+  email: string | null;
 
   @Column({ type: "boolean", default: false })
-  verifiedEmail: Boolean;
+  verifiedEmail: boolean;
 
   @Column({ type: "text" })
-  fisrtName: string;
+  firstName: string;
 
   @Column({ type: "text" })
   lastName: string;
 
-  @Column({ type: "int" })
+  @Column({ type: "int", nullable: true })
   age: number;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   password: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   phoneNumber: string;
 
   @Column({ type: "boolean", default: false })
-  verifiedPhoneNumber: Boolean;
+  verifiedPhoneNumber: boolean;
 
   @Column({ type: "text" })
   profilePhoto: string;
@@ -64,14 +68,37 @@ class User extends BaseEntity {
   @Column({ type: "double precision", default: 0 })
   lastOrientation: number;
 
-  @CreateDateColumn()
-  createAt: string;
+  @Column({ type: "text", nullable: true })
+  fbId: string;
 
-  @UpdateDateColumn()
-  updateAt: string;
+  @OneToMany(type => Chat, chat => chat.passenger)
+  chatsAsPassenger: Chat[];
+
+  @OneToMany(type => Chat, chat => chat.driver)
+  chatsAsDriver: Chat[];
+
+  @OneToMany(type => Message, message => message.user)
+  messages: Message[];
+
+  @OneToMany(type => Ride, ride => ride.passenger)
+  ridesAsPassenger: Ride[];
+
+  @OneToMany(type => Ride, ride => ride.driver)
+  ridesAsDriver: Ride[];
+
+  @OneToMany(type => Place, place => place.user)
+  places: Place[];
+
+  @CreateDateColumn() createdAt: string;
+
+  @UpdateDateColumn() updatedAt: string;
 
   get fullName(): string {
-    return `${this.fisrtName} ${this.lastName}`;
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+  public comparePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
   }
 
   @BeforeInsert()
@@ -85,10 +112,6 @@ class User extends BaseEntity {
 
   private hashPassword(password: string): Promise<string> {
     return bcrypt.hash(password, BCRYPT_ROUNDS);
-  }
-
-  public comparePassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password);
   }
 }
 

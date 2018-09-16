@@ -1,10 +1,10 @@
-#nuber-server
+# nuber-server
 
 server for Uber clone coding. GraphQL, NodeJS, TypeScript
 
-##features
+## features
 
-###public resolvers
+### public resolvers
 - [x] sign in / sign up with facebook
 - [ ] sign in with email
 - [ ] start phoneNumber verification
@@ -12,7 +12,7 @@ server for Uber clone coding. GraphQL, NodeJS, TypeScript
 - [ ] sign up with email
 
 
-###privete resolvers
+### privete resolvers
 
 - [ ] generate JWT
 - [ ] verify JWT

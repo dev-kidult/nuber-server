@@ -34,6 +34,6 @@ server for Uber clone coding. GraphQL, NodeJS, TypeScript
 - [ ] subscribe to chat room message
 - [ ] send a chat message
 
-##code challenge
+## code challenge
 - [ ] get ride history
 - [ ] see ride detail
